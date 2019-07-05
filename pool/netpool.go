@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/514366607/tool/logger"
+	"github.com/514366607/tools/logger"
 )
 
 // NetConnectPool 网络连接池
