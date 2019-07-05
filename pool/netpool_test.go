@@ -4,7 +4,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/514366607/tool/logger"
+	"github.com/514366607/tools/logger"
 )
 
 func init() {
