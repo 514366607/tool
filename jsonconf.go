@@ -17,4 +17,5 @@ func JSONLoad(filename string, v interface{}) error {
 	if err != nil {
 		return err
 	}
+	return nil
 }
