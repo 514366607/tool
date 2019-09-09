@@ -42,3 +42,11 @@ func FormatStringToInt(s string) (int64, error) {
 func FormatStringToFloat(s string) (float64, error) {
 	return strconv.ParseFloat(s, 64)
 }
+
+// Abs 返回绝对值
+func Abs(num int64) int64 {
+	if num < 0 {
+		return -num
+	}
+	return num
+}
