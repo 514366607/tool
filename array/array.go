@@ -51,25 +51,25 @@ func Sum(dataArray interface{}) (int64, error) {
 		for i := 0; i < dataValue.Len(); i++ {
 			switch dataValue.Index(i).Kind() {
 			case reflect.Int:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(int)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(int)))
 			case reflect.Int8:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(int8)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(int8)))
 			case reflect.Int16:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(int16)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(int16)))
 			case reflect.Int32:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(int32)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(int32)))
 			case reflect.Int64:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(int64)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(int64)))
 			case reflect.Uint:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(uint)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(uint)))
 			case reflect.Uint8:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(uint8)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(uint8)))
 			case reflect.Uint16:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(uint16)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(uint16)))
 			case reflect.Uint32:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(uint32)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(uint32)))
 			case reflect.Uint64:
-				sum = sub.SubInt64(sum, int64(dataValue.Index(i).Interface().(uint64)))
+				sum = sub.Int64(sum, int64(dataValue.Index(i).Interface().(uint64)))
 			default:
 				return 0, fmt.Errorf("错误类型%v", dataValue.Index(i).Kind())
 			}
@@ -79,25 +79,25 @@ func Sum(dataArray interface{}) (int64, error) {
 		for _, key := range dataValue.MapKeys() {
 			switch dataValue.MapIndex(key).Kind() {
 			case reflect.Int:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(int)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(int)))
 			case reflect.Int8:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(int8)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(int8)))
 			case reflect.Int16:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(int16)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(int16)))
 			case reflect.Int32:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(int32)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(int32)))
 			case reflect.Int64:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(int64)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(int64)))
 			case reflect.Uint:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(uint)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(uint)))
 			case reflect.Uint8:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(uint8)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(uint8)))
 			case reflect.Uint16:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(uint16)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(uint16)))
 			case reflect.Uint32:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(uint32)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(uint32)))
 			case reflect.Uint64:
-				sum = sub.SubInt64(sum, int64(dataValue.MapIndex(key).Interface().(uint64)))
+				sum = sub.Int64(sum, int64(dataValue.MapIndex(key).Interface().(uint64)))
 			default:
 				return 0, fmt.Errorf("错误类型%v", dataValue.MapIndex(key).Kind())
 			}
