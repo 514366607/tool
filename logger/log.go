@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -30,12 +31,16 @@ type LogFile struct {
 	logTime  int64
 	fileName string
 	fileFd   *os.File
+	sync.RWMutex
 }
 
-var logFile LogFile
+var logFile = new(LogFile)
 
 // Config 配置
 func Config(logFolder string, level int) {
+	logFile.Lock()
+	defer logFile.Unlock()
+
 	logFile.fileName = logFolder
 	logFile.level = level
 
@@ -53,12 +58,12 @@ func SetLevel(level int) {
 
 // GetLevel 取得Debug等级
 func GetLevel() int {
-	return logFile.level
+	return logFile.GetLevel()
 }
 
 // Debugf Debug打印
 func Debugf(format string, args ...interface{}) {
-	if logFile.level >= DebugLevel {
+	if logFile.GetLevel() >= DebugLevel {
 		log.SetPrefix("debug ")
 		log.Output(2, fmt.Sprintf(format, args...))
 	}
@@ -66,15 +71,12 @@ func Debugf(format string, args ...interface{}) {
 
 // Debug Debug打印
 func Debug(args ...interface{}) {
-	if logFile.level >= DebugLevel {
-		log.SetPrefix("debug ")
-		log.Output(2, fmt.Sprintln(args...))
-	}
+	Debugf("+%v", args)
 }
 
 // Infof 信息打印
 func Infof(format string, args ...interface{}) {
-	if logFile.level >= InfoLevel {
+	if logFile.GetLevel() >= InfoLevel {
 		log.SetPrefix("info ")
 		log.Output(2, fmt.Sprintf(format, args...))
 	}
@@ -82,15 +84,12 @@ func Infof(format string, args ...interface{}) {
 
 // Info 信息打印
 func Info(args ...interface{}) {
-	if logFile.level >= InfoLevel {
-		log.SetPrefix("info ")
-		log.Output(2, fmt.Sprintln(args...))
-	}
+	Infof("+%v", args)
 }
 
 // Warnf 警告打印
 func Warnf(format string, args ...interface{}) {
-	if logFile.level >= WarnLevel {
+	if logFile.GetLevel() >= WarnLevel {
 		log.SetPrefix("warn ")
 		log.Output(2, fmt.Sprintf(format, args...))
 	}
@@ -98,15 +97,12 @@ func Warnf(format string, args ...interface{}) {
 
 // Warn 警告打印
 func Warn(args ...interface{}) {
-	if logFile.level >= WarnLevel {
-		log.SetPrefix("warn ")
-		log.Output(2, fmt.Sprintln(args...))
-	}
+	Warnf("+%v", args)
 }
 
 // Errorf 错误打印
 func Errorf(format string, args ...interface{}) {
-	if logFile.level >= ErrorLevel {
+	if logFile.GetLevel() >= ErrorLevel {
 		log.SetPrefix("error ")
 		log.Output(2, fmt.Sprintf(format, args...))
 	}
@@ -114,15 +110,12 @@ func Errorf(format string, args ...interface{}) {
 
 // Error 错误打印
 func Error(args ...interface{}) {
-	if logFile.level >= ErrorLevel {
-		log.SetPrefix("error ")
-		log.Output(2, fmt.Sprintln(args...))
-	}
+	Errorf("+%v", args)
 }
 
 // Fatalf 语法错误打印
 func Fatalf(format string, args ...interface{}) {
-	if logFile.level >= FatalLevel {
+	if logFile.GetLevel() >= FatalLevel {
 		log.SetPrefix("fatal ")
 		log.Output(2, fmt.Sprintf(format, args...))
 	}
@@ -130,13 +123,10 @@ func Fatalf(format string, args ...interface{}) {
 
 // Fatal 语法错误打印
 func Fatal(args ...interface{}) {
-	if logFile.level >= FatalLevel {
-		log.SetPrefix("fatal ")
-		log.Output(2, fmt.Sprintln(args...))
-	}
+	Fatalf("+%v", args)
 }
 
-func (me LogFile) Write(buf []byte) (n int, err error) {
+func (me *LogFile) Write(buf []byte) (n int, err error) {
 	if me.fileName == "" {
 		fmt.Printf("consol: %s", buf)
 		return len(buf), nil
@@ -152,6 +142,13 @@ func (me LogFile) Write(buf []byte) (n int, err error) {
 	}
 
 	return logFile.fileFd.Write(buf)
+}
+
+// GetLevel 取得Debug等级
+func (me *LogFile) GetLevel() int {
+	logFile.RLock()
+	defer logFile.RUnlock()
+	return logFile.level
 }
 
 func (me *LogFile) createLogFile() {
