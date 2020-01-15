@@ -71,7 +71,7 @@ func Debugf(format string, args ...interface{}) {
 
 // Debug Debug打印
 func Debug(args ...interface{}) {
-	Debugf("+%v", args)
+	Debugf("%+#v", args)
 }
 
 // Infof 信息打印
@@ -84,7 +84,7 @@ func Infof(format string, args ...interface{}) {
 
 // Info 信息打印
 func Info(args ...interface{}) {
-	Infof("+%v", args)
+	Infof("%+#v", args)
 }
 
 // Warnf 警告打印
@@ -97,7 +97,7 @@ func Warnf(format string, args ...interface{}) {
 
 // Warn 警告打印
 func Warn(args ...interface{}) {
-	Warnf("+%v", args)
+	Warnf("%+#v", args)
 }
 
 // Errorf 错误打印
@@ -110,7 +110,7 @@ func Errorf(format string, args ...interface{}) {
 
 // Error 错误打印
 func Error(args ...interface{}) {
-	Errorf("+%v", args)
+	Errorf("%+#v", args)
 }
 
 // Fatalf 语法错误打印
@@ -123,7 +123,7 @@ func Fatalf(format string, args ...interface{}) {
 
 // Fatal 语法错误打印
 func Fatal(args ...interface{}) {
-	Fatalf("+%v", args)
+	Fatalf("%+#v", args)
 }
 
 func (me *LogFile) Write(buf []byte) (n int, err error) {
