@@ -32,7 +32,7 @@ func IN(data interface{}, dataArray interface{}) bool {
 		}
 		break
 	default:
-		logger.Error("传入不为Slice|Map")
+		logger.Get().Sugar().Panic("传入不为Slice|Map")
 	}
 
 	return false
@@ -104,7 +104,7 @@ func Sum(dataArray interface{}) (int64, error) {
 		}
 		break
 	default:
-		logger.Error("传入不为Slice|Map")
+		logger.Get().Sugar().Panic("传入不为Slice|Map")
 	}
 	return sum, nil
 }

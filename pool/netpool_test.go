@@ -5,10 +5,11 @@ import (
 	"testing"
 
 	"github.com/514366607/tools/logger"
+	"go.uber.org/zap"
 )
 
 func init() {
-	logger.SetLevel(10)
+	logger.New(zap.DebugLevel, "", "", 0)
 }
 
 var (

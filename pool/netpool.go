@@ -56,11 +56,11 @@ func (p *NetConnectPool) Get() (conn net.Conn) {
 	case conn = <-p.pool:
 		return
 	case <-time.After(time.Second):
-		logger.Info("连接池繁忙，生成一个新连接")
+		logger.Get().Sugar().Info("连接池繁忙，生成一个新连接")
 		var err error
 		conn, err = p.connect()
 		if err != nil {
-			logger.Error("连接失败", err)
+			logger.Get().Sugar().Error("连接失败", err)
 			return p.Get()
 		}
 		return
@@ -78,7 +78,7 @@ func (p *NetConnectPool) Put(conn net.Conn) {
 		// 关闭新生成的连接
 		err := conn.Close()
 		if err != nil {
-			logger.Error(err)
+			logger.Get().Sugar().Error(err)
 		}
 	}
 	return
@@ -100,7 +100,7 @@ func (p *NetConnectPool) Closes() {
 	for conn := range p.pool {
 		err := conn.Close()
 		if err != nil {
-			logger.Error(err)
+			logger.Get().Sugar().Error(err)
 		}
 	}
 	return
