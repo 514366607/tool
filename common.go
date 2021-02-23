@@ -44,9 +44,7 @@ func FormatStringToFloat(s string) (float64, error) {
 }
 
 // Abs 返回绝对值
-func Abs(num int64) int64 {
-	if num < 0 {
-		return -num
-	}
-	return num
+func Abs(n int64) int64 {
+	y := n >> 63
+	return (n ^ y) - y
 }
